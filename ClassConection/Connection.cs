@@ -116,6 +116,21 @@ namespace ClassConection
                     Console.WriteLine("NULL");
                }
           }
-
+          public bool ItsNumber(string str)
+          {
+               if (Regex.IsMatch(str, @"^(?:\+7|8)(?:\(\d{3}\)|\d{3})\d{3}(-|\s)\d{2}(-|\s)\d{2}$"))
+               {
+                    return true;
+               }
+               else return false;
+          }
+          public bool ItsOnlyFIO(string str)
+          {
+               if (Regex.IsMatch(str, @"^[а-ЯЁ][а-яё]+(\s[А-ЯЁ][а-яё]+)?(\s[А-ЯЁ][а-яё]+)?$"))
+               {
+                    return true;
+               }
+               else return false;
+          }
      }
 }
