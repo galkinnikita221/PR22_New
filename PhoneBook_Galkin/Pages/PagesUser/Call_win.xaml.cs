@@ -41,7 +41,7 @@ namespace PhoneBook_Galkin.Pages.PagesUser
             combItm_vh.Content = "Входящий";
             if (_call.category_call == 2) combItm_vh.IsSelected = true;
             call_category_text.Items.Add(combItm_vh);
-            MainWindow.connect.LoadData(ClassConnection.Connection.tables.users);
+            MainWindow.connect.LoadData(ClassConection.Connection.tabels.users);
             foreach (User item in MainWindow.connect.users)
             {
                 ComboBoxItem combUser = new ComboBoxItem();
@@ -87,12 +87,12 @@ namespace PhoneBook_Galkin.Pages.PagesUser
                     }
                     if (call_itm.time_end == null)
                     {
-                        int id = MainWindow.connect.SetLastId(ClassConnection.Connection.tables.calls);
+                        int id = MainWindow.connect.SetLastId(ClassConection.Connection.tabels.calls);
                         string query = $"INSERT INTO [calls]([Код], [user_id], [category_call], [date], [time_start], [time_end]) VALUES ({id.ToString()}, '{id_temp_user.id.ToString()}', '{id_calls_categ.ToString()}', '{date_start_call.SelectedDate.Value.ToString().Split(' ')[0]}', '{date_start_call.SelectedDate.Value.ToString().Split(' ')[0]} {time_start.Text}', '{date_end_call.SelectedDate.Value.ToString().Split(' ')[0]} {time_finish.Text}')";
                         var pc = MainWindow.connect.QueryAccess(query);
                         if (pc != null)
                         {
-                            MainWindow.connect.LoadData(ClassConnection.Connection.tables.calls);
+                            MainWindow.connect.LoadData(ClassConection.Connection.tabels.calls);
                             MessageBox.Show("Успешное добавление звонка", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                             MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.calls);
                         }
@@ -104,7 +104,7 @@ namespace PhoneBook_Galkin.Pages.PagesUser
                         var pc = MainWindow.connect.QueryAccess(query);
                         if (pc != null)
                         {
-                            MainWindow.connect.LoadData(ClassConnection.Connection.tables.calls);
+                            MainWindow.connect.LoadData(ClassConection.Connection.tabels.calls);
                             MessageBox.Show("Успешное изменение звонка", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                             MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.calls);
                         }
@@ -125,13 +125,13 @@ namespace PhoneBook_Galkin.Pages.PagesUser
         {
             try
             {
-                MainWindow.connect.LoadData(ClassConnection.Connection.tables.calls);
+                MainWindow.connect.LoadData(ClassConection.Connection.tabels.calls);
                 string vs = "DELETE FROM [calls] WHERE [Код] = " + call_itm.id.ToString() + "";
                 var pc = MainWindow.connect.QueryAccess(vs);
                 if (pc != null)
                 {
                     MessageBox.Show("Успешное удаление звонка", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-                    MainWindow.connect.LoadData(ClassConnection.Connection.tables.calls);
+                    MainWindow.connect.LoadData(ClassConection.Connection.tabels.calls);
                     MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.calls);
                 }
                 else MessageBox.Show("Запрос на удаление звонка не был обработан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);

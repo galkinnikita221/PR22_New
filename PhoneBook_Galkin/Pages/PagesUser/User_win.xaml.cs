@@ -42,12 +42,12 @@ namespace PhoneBook_Galkin.Pages.PagesUser
             }
             if (user_loc.fio_user == null)
             {
-                int id = MainWindow.connect.SetLastId(ClassConnection.Connection.tables.users);
+                int id = MainWindow.connect.SetLastId(ClassConection.Connection.tabels.users);
                 string query = $"INSERT INTO [users]([Код], [phone_num], [FIO_user], [passport_data]) VALUES ({id.ToString()}, '{phone_user.Text}', '{fio_user.Text}', '{addrec_user.Text}')";
                 var pc = MainWindow.connect.QueryAccess(query);
                 if (pc != null)
                 {
-                    MainWindow.connect.LoadData(ClassConnection.Connection.tables.users);
+                    MainWindow.connect.LoadData(ClassConection.Connection.tabels.users);
                     MessageBox.Show("Успешное добавление клиента", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                     MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.users);
                 }
@@ -59,7 +59,7 @@ namespace PhoneBook_Galkin.Pages.PagesUser
                 var pc = MainWindow.connect.QueryAccess(query);
                 if (pc != null)
                 {
-                    MainWindow.connect.LoadData(ClassConnection.Connection.tables.users);
+                    MainWindow.connect.LoadData(ClassConection.Connection.tabels.users);
                     MessageBox.Show("Успешное изменение клиента", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                     MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.users);
                 }
@@ -76,7 +76,7 @@ namespace PhoneBook_Galkin.Pages.PagesUser
         {
             try
             {
-                MainWindow.connect.LoadData(ClassConnection.Connection.tables.users);
+                MainWindow.connect.LoadData(ClassConection.Connection.tabels.users);
                 Call userFind = MainWindow.connect.calls.Find(x => x.user_id == user_loc.id);
                 if (userFind != null)
                 {
@@ -90,7 +90,7 @@ namespace PhoneBook_Galkin.Pages.PagesUser
                 if (pc != null && pc1 != null)
                 {
                     MessageBox.Show("Успешное удаление клиента", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-                    MainWindow.connect.LoadData(ClassConnection.Connection.tables.users);
+                    MainWindow.connect.LoadData(ClassConection.Connection.tabels.users);
                     MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Main.page_main.users);
                 }
                 else MessageBox.Show("Запрос на удаление клиента не был обработан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);

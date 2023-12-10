@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassConection;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -11,12 +12,12 @@ namespace PhoneBook_Galkin
      public partial class MainWindow : Window
 	{
           public static Connection connect;
-          public static Pages.Main.main;
+          public static Pages.Main main;
         public MainWindow()
           {
                InitializeComponent();
                connect = new Connection();
-               connect.LoadData(Connections.tabels.users);
+               connect.LoadData(Connection.tabels.users);
                connect.LoadData(Connection.tabels.calls);
                main = new Pages.Main();
                OpenPageMain();

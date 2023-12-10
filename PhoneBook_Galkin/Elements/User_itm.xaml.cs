@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassModule;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ClassModule;
 
 namespace PhoneBook_Galkin.Elements
 {
@@ -22,26 +22,16 @@ namespace PhoneBook_Galkin.Elements
     /// </summary>
     public partial class User_itm : UserControl
     {
-        Call call_loc;
-        public User_itm(Call _call)
+        User user_loc;
+        public User_itm(User _user)
         {
             InitializeComponent();
-            call_loc = _call;
-            if (_call.time_end != null)
+            user_loc = _user;
+            if (_user.fio_user != null)
             {
-                User user_loc = MainWindow.connect.users.Find(x => x.id == _call.user_id);
-                category_call_text.Content = user_loc.fio_user.ToString();
-                string[] dateLoc1 = _call.time_start.ToString().Split(' ');
-                string[] dateLoc2 = _call.time_end.ToString().Split(' ');
-                string[] date1 = dateLoc1[0].Split('.');
-                string[] date2 = dateLoc2[0].Split('.');
-                DateTime dateStart = new DateTime(int.Parse(date1[2]), int.Parse(date1[1]), int.Parse(date1[0]), int.Parse(dateLoc1[1].Split(':')[0]), int.Parse(dateLoc1[1].Split(':')[1]), 0);
-                DateTime dateFinish = new DateTime(int.Parse(date2[2]), int.Parse(date2[1]), int.Parse(date2[0]), int.Parse(dateLoc2[1].Split(':')[0]), int.Parse(dateLoc2[1].Split(':')[1]), 0);
-                TimeSpan dateEnd = dateFinish.Subtract(dateStart);
-                time_call_text.Content = "Продолжительность звонка: " + dateEnd.ToString();
-                number_call_text.Content = "Номер телефона: " + user_loc.phone_num.ToString();
+                fio_user.Content = _user.fio_user;
+                phone_user.Content = "Номер: " + _user.phone_num;
             }
-            img_category_call.Source = (_call.category_call == 1) ? new BitmapImage(new Uri(@"/Images/out.png", UriKind.RelativeOrAbsolute)) : new BitmapImage(new Uri(@"/Images/in.png", UriKind.RelativeOrAbsolute));
             DoubleAnimation opgridAnimation = new DoubleAnimation();
             opgridAnimation.From = 0;
             opgridAnimation.To = 1;
@@ -49,26 +39,33 @@ namespace PhoneBook_Galkin.Elements
             border.BeginAnimation(StackPanel.OpacityProperty, opgridAnimation);
         }
 
-
         private void Click_redact(object sender, RoutedEventArgs e)
         {
-            MainWindow.main.Anim_move(MainWindow.main.scroll_main, MainWindow.main.frame_main, MainWindow.main.frame_main, new Pages.PagesUser.Call_win(call_loc));
+            MainWindow.main.Anim_move(MainWindow.main.scroll_main, MainWindow.main.frame_main, MainWindow.main.frame_main, new Pages.PagesUser.User_win(user_loc));
         }
 
         private void Click_remove(object sender, RoutedEventArgs e)
         {
             try
             {
-                MainWindow.connect.LoadData(ClassConnection.Connection.tables.calls);
-                string vs = $"DELETE FROM [calls] WHERE [Код] = " + call_loc.id.ToString() + "";
-                var pc = MainWindow.connect.QueryAccess(vs);
-                if (pc != null)
+                MainWindow.connect.LoadData(ClassConection.Connection.tabels.users);
+                Call userFind = MainWindow.connect.calls.Find(x => x.user_id == user_loc.id);
+                if (userFind != null)
                 {
-                    MessageBox.Show("Успешное удаление звонка", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-                    MainWindow.connect.LoadData(ClassConnection.Connection.tables.calls);
-                    MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Pages.Main.page_main.calls);
+                    var click = MessageBox.Show("У данного клиента есть звонки, все равно удалить его?", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    if (click == MessageBoxResult.No) return;
                 }
-                else MessageBox.Show("Запрос на удаление звонка не был обработан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                string vs1 = $"DELETE FROM [calls] WHERE [user_id] = '{user_loc.id.ToString()}'";
+                var pc1 = MainWindow.connect.QueryAccess(vs1);
+                string vs = $"DELETE FROM [users] WHERE [Код] = " + user_loc.id.ToString() + "";
+                var pc = MainWindow.connect.QueryAccess(vs);
+                if (pc != null && pc1 != null)
+                {
+                    MessageBox.Show("Успешное удаление клиента", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MainWindow.connect.LoadData(ClassConection.Connection.tabels.users);
+                    MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Pages.Main.page_main.users);
+                }
+                else MessageBox.Show("Запрос на удаление клиента не был обработан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
