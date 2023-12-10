@@ -11,15 +11,15 @@
             <Grid.Resources>
                 <ResourceDictionary Source="/Resource/BtnRes.xaml"/>
             </Grid.Resources>
-            <Image x:Name="img_category_call" Source="/Images/in.png" Margin="21,10,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="28"/>
+            <Image x:Name="img_category_call" Source="/img/in.png" Margin="21,10,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="28"/>
             <Label Content="Категория звонка" x:Name="category_call_text" Margin="57,5,101,0" Foreground="Black" FontFamily="Corbel" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom" Height="35" VerticalAlignment="Top" FontWeight="Bold" FontSize="18"/>
             <Label Content="Время звонка" x:Name="time_call_text" Margin="57,36,63,0" Foreground="Black" FontFamily="Corbel" HorizontalContentAlignment="Left" Height="29" VerticalAlignment="Top" FontSize="16"/>
             <Label Content="Номер" x:Name="number_call_text" Margin="57,61,63,0" Foreground="Black" FontFamily="Corbel" HorizontalContentAlignment="Left" Height="29" VerticalAlignment="Top" FontSize="16"/>
             <Button Style="{StaticResource BtnRedac}" Background="#FF2C2C2C" Margin="0,5,9.6,0" VerticalAlignment="Top" Height="40" Width="63" Click="Click_redact" HorizontalAlignment="Right">
-                <Image Source="/Images/redac.png" Width="20" Height="20"/>
+                <Image Source="/img/redac.png" Width="20" Height="20"/>
             </Button>
             <Button Style="{StaticResource BtnRedac}" Background="#FFE42B2B" Margin="0,0,9.6,10" VerticalAlignment="Bottom" Height="40" Width="63" Click="Click_remove" HorizontalAlignment="Right">
-                <Image Source="/Images/del.png" Width="20" Height="20"/>
+                <Image Source="/img/del.png" Width="20" Height="20"/>
             </Button>
         </Grid>
     </Border>

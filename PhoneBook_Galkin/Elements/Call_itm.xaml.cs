@@ -64,7 +64,7 @@ namespace PhoneBook_Galkin.Elements
                 if (pc != null)
                 {
                     MessageBox.Show("Успешное удаление звонка", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-                    MainWindow.connect.LoadData(ClassConection.Connection.tables.calls);
+                    MainWindow.connect.LoadData(ClassConection.Connection.tabels.calls);
                     MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main, null, null, Pages.Main.page_main.calls);
                 }
                 else MessageBox.Show("Запрос на удаление звонка не был обработан", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);

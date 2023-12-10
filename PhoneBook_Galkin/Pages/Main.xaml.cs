@@ -63,7 +63,7 @@ namespace PhoneBook_Galkin.Pages
                     {
                         Dispatcher.InvokeAsync(async () =>
                         {
-                            MainWindow.connect.LoadData(ClassConnection.Connection.tables.users);
+                            MainWindow.connect.LoadData(ClassConection.Connection.tabels.users);
                             foreach (User user_itm in MainWindow.connect.users)
                             {
                                 if (page_select == page_main.users)
@@ -133,7 +133,6 @@ namespace PhoneBook_Galkin.Pages
         private void Click_Range_Date(object sender, RoutedEventArgs e)
         {
             das = true;
-            if (das == true) ClearFilter();
             das = false;
             if (frame_main.Visibility == Visibility.Visible) MainWindow.main.Anim_move(MainWindow.main.frame_main, MainWindow.main.scroll_main);
             if (page_select != page_main.filters)
@@ -154,7 +153,7 @@ namespace PhoneBook_Galkin.Pages
                     {
                         Dispatcher.InvokeAsync(async () =>
                         {
-                            MainWindow.connect.LoadData(ClassConection.Connection.tables.search_filter);
+                            MainWindow.connect.LoadData(ClassConection.Connection.tabels.search_filter);
                             foreach (Search_filter filter_itm in MainWindow.connect.search_filter)
                             {
                                 if (page_select == page_main.filters)
